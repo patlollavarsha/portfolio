@@ -116,3 +116,18 @@ document.getElementById('timeline-list').innerHTML = DATA.timeline.map(t => `
     </div>
   </div>
 `).join('');
+// ---------- SCROLL REVEAL ANIMATION ----------
+document.querySelectorAll('section, .project, .tl-item').forEach(el => {
+  el.classList.add('reveal');
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
